@@ -1,0 +1,16 @@
+C:\이수현\TeamProject\TeamProject\bin\Debug\TeamProject.exe.config
+C:\이수현\TeamProject\TeamProject\bin\Debug\TeamProject.exe
+C:\이수현\TeamProject\TeamProject\bin\Debug\TeamProject.pdb
+C:\이수현\TeamProject\TeamProject\obj\Debug\TeamProject.csproj.AssemblyReference.cache
+C:\이수현\TeamProject\TeamProject\obj\Debug\TeamProject.Form1.resources
+C:\이수현\TeamProject\TeamProject\obj\Debug\TeamProject.Properties.Resources.resources
+C:\이수현\TeamProject\TeamProject\obj\Debug\TeamProject.csproj.GenerateResource.cache
+C:\이수현\TeamProject\TeamProject\obj\Debug\TeamProject.csproj.CoreCompileInputs.cache
+C:\이수현\TeamProject\TeamProject\obj\Debug\TeamProject.exe
+C:\이수현\TeamProject\TeamProject\obj\Debug\TeamProject.pdb
+C:\이수현\TeamProject\TeamProject\obj\Debug\TeamProject.FoodManageForm.resources
+C:\이수현\TeamProject\TeamProject\obj\Debug\TeamProject.QuantityChangeForm.resources
+C:\이수현\TeamProject\TeamProject\obj\Debug\TeamProject.SetInformationForm.resources
+C:\이수현\TeamProject\TeamProject\obj\Debug\TeamProject.SetQuantityAlarmForm.resources
+C:\이수현\TeamProject\TeamProject\bin\Debug\Oracle.DataAccess.dll
+C:\이수현\TeamProject\TeamProject\obj\Debug\TeamProject.csproj.CopyComplete
