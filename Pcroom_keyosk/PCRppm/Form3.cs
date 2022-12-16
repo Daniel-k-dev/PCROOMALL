@@ -21,6 +21,7 @@ namespace PCRppm
         private void Form3_Load(object sender, EventArgs e)
         {
             Form1 form1 = new Form1();
+            // 결제할 금액을 불러와 표시
             price.Text += form1.getClickPrcie();
         }
 
@@ -31,10 +32,10 @@ namespace PCRppm
 
         private void confirm_Click(object sender, EventArgs e)
         {
+            // 충전확인 폼으로 이동
             Form2 form2 = new Form2();
             form2.ShowDialog();
             Close();
         }
     }
-    //test
 }

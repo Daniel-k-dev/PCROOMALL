@@ -28,7 +28,10 @@ namespace PCRppm
 
     public partial class Register : Form
     {
+        // 중복체크 변수
         private bool double_check = false;
+
+        // 가상 키보드 시작 메소드
         private void LoadKeyboard()
         {
             var path64 = System.IO.Path.Combine(Directory.GetDirectories(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "winsxs"), "amd64_microsoft-windows-osk_*")[0], "osk.exe");
@@ -39,7 +42,7 @@ namespace PCRppm
                 Process.Start(path);
             }
         }
-
+        // 가상 키보드 종료 메소드
         private void killKeyboard()
         {
             System.Diagnostics.Process[] procs = System.Diagnostics.Process.GetProcessesByName("osk");
@@ -49,6 +52,7 @@ namespace PCRppm
             }
         }
 
+        // 정규화코드 (영문 숫자만 가능) 
         private void regularExpressionEN_NUM(TextBox text)
         {
             Regex regex = new Regex(@"([a-zA-Z0-9]){8,16}\w+");
@@ -60,6 +64,7 @@ namespace PCRppm
             }
         }
 
+        // 정규화 코드 (숫자만 가능)
         private void regularExpressionNUM(int col, TextBox text)
         {
             Regex regex = new Regex(@"([0-9]){6}\w+");
@@ -118,6 +123,7 @@ namespace PCRppm
         {
             LoadKeyboard();
         }
+        // 중복확인 코드
         private void doubleCheck_Click(object sender, EventArgs e)
         {
             if (double_check == false)
@@ -133,27 +139,30 @@ namespace PCRppm
                 List <String> idlist = new List<string> ();
 
                 int rowCount = 0;
+                // 순회하면서 리스트에 DB의 아이디값을 가지고 온다.
                 while (sr.Read())
                 {
                     rowCount++;
                     idlist.Add((String) sr.GetString(0));
                 }
 
-                Console.WriteLine(idlist);
-
+                // 탐색
                 for (int index = 0; index < rowCount;index++)
                 {
+                    // 텍스트박스가 공백인 경우
                     if (idTextBox.Text.Equals(""))
                     {
                         MessageBox.Show((String)"입력란이 공백입니다.");
                         idTextBox.Focus();
                         break;
                     }
+                    // DB에 입력값과 같은 값이 있는 경우
                     if (idlist[index].Equals(idTextBox.Text))
                     {
                         MessageBox.Show((String)"이미 사용중인 아이디 입니다.");
                         break;
                     }
+                    // 성공시
                     else if (rowCount -1 == index)
                     {
                         double_check = true;
@@ -167,6 +176,8 @@ namespace PCRppm
 
             }
         }
+
+
         private void passwordTextBox_Click(object sender, EventArgs e)
         {
             LoadKeyboard();
@@ -183,35 +194,44 @@ namespace PCRppm
         {
             LoadKeyboard();
         }
+
+        // DB 입력 + 확인 코드
         private void submit_Click(object sender, EventArgs e)
         {
+            // 키보드 종료
             killKeyboard();
+            // 텍스트박스들
             List <TextBox> list = new List <TextBox>(new TextBox[]
             {
                 nameTextBox, idTextBox, passwordTextBox, compaerPasswordTextbox,
                 dateOfBirth, phoneNumber
             });
+            // 에러 메세지
             List<String> msglist = new List<String>(new String[]
             {
                 "이름을 입력해주세요", "id를 입력해주세요", "비밀번호를 입력해주세요",
                 "비밀번호 확인을 입력해주세요","생년월일을 입력해주세요","전화번호를 입력해주세요"
             });
 
+            // 탐색
             for (int index = 0; index < list.Count ; index++)
             {
+                // 입력상자의 값이 공백인 경우 
                 if (list[index].Text == "")
                 {
                     MessageBox.Show((String)msglist[index]);
                     list[index].Focus();
                     break;
                 }
-
+                // 입력상자의 값이 전부 공백이 아닌 경우
                 if (index == list.Count - 1)
                 {
+                    // 중복체크 확인코드
                     if (double_check == false)
                     {
                         MessageBox.Show((String)"중복확인을 해주세요");
                     }
+                    // 비밀번호와 비밀번호확인 텍스트박스의 내용이 일치하지 않는 경우
                     else if (passwordTextBox.Text != compaerPasswordTextbox.Text)
                     {
                         MessageBox.Show((String)"비밀번호가 다릅니다.");
@@ -219,6 +239,7 @@ namespace PCRppm
                     }
                     else
                     {
+                        // DB insert
                         try
                         {
                             DS.Clear();
@@ -251,11 +272,12 @@ namespace PCRppm
             }
             Close();
         }
+        // 취소 버튼 클릭 시 폼 종료
         private void cancel_Click(object sender, EventArgs e)
         {
             Close();
         }
-
+        //이름 텍스트박스를 나가게 될때의 이벤트
         private void nameTextBox_Leave(object sender, EventArgs e)
         {
             if (nameTextBox.Text == "")

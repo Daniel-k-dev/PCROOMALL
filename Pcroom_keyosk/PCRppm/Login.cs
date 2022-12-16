@@ -22,7 +22,10 @@ namespace PCRppm
 {
     public partial class Login : Form
     {
+        // 접속한 사용자 아이디
         public static String userId;
+
+        // 가상 키보드 로드
         private void loadKeyboard()
         {
             var path64 = System.IO.Path.Combine(Directory.GetDirectories(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "winsxs"), "amd64_microsoft-windows-osk_*")[0], "osk.exe");
@@ -33,7 +36,7 @@ namespace PCRppm
                 Process.Start(path);
             }
         }
-
+        // 가상 키보드 종료
         private void killKeyboard()
         {
             System.Diagnostics.Process[] procs = System.Diagnostics.Process.GetProcessesByName("osk");
@@ -55,6 +58,7 @@ namespace PCRppm
         // ataTable 객체입니다.
         DataTable userData;
 
+        // 사용자의 아이디를 리턴
         public String getUserId ()
         {
             return userId;
@@ -95,6 +99,7 @@ namespace PCRppm
         }
 
 
+        // 사용자의 비밀번호 표시 on/off
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked == true)
@@ -107,6 +112,7 @@ namespace PCRppm
             }
         }
 
+        // 확인버튼 클릭 이벤트
         private void confirm_Click(object sender, EventArgs e)
         {
             killKeyboard();
@@ -117,18 +123,21 @@ namespace PCRppm
 
             for (int index = 0; index < rowCount;index++)
             {
+                // 아이디 텍스트박스가 공백인경우
                 if (idTextBox.Text.Equals(""))
                 {
                     MessageBox.Show((String)"아이디가 공백입니다.");
                     idTextBox.Focus();
                     break;
                 }
+                // 비밀번호 텍스트박스가 공백인경우
                 else if (passwordTextbox.Text.Equals(""))
                 {
                     MessageBox.Show((String)"패스워드가 공백입니다.");
                     passwordTextbox.Focus();
                     break;
                 }
+                // DB의 값과 사용자의 입력값이 일치하는 경우
                 else if (userData.Rows[index]["USER_ID"].ToString().Equals(idTextBox.Text) && userData.Rows[index]["USER_PASSWORD"].ToString().Equals(passwordTextbox.Text))
                 {
                     userId = idTextBox.Text;
@@ -138,6 +147,7 @@ namespace PCRppm
                     Close();
                     break;   
                 }
+                // DB의 값과 사용자의 입력값이 일치하지 않는 경우
                 else if (rowCount - 1 == index)
                 {
                     MessageBox.Show((String)"아이디 혹은 비밀번호가 틀렸습니다.");
@@ -159,7 +169,7 @@ namespace PCRppm
         }
 
         
-
+        // 비밀번호 입력시 이벤트
         private void passwordTextbox_Leave(object sender, EventArgs e)
         {
             Regex regex = new Regex(@"([a-zA-Z0-9]){8,16}\w+");
